@@ -43,15 +43,9 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('transaksi.index') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
-            <p>Active Page</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Inactive Page</p>
+            <p>Data Transaksi</p>
           </a>
         </li>
       </ul>
