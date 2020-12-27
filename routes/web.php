@@ -32,4 +32,8 @@ Route::group(['prefix' => 'admin'], function() {
   Route::resource('customer', 'CustomerController');
   // route transaksi
   Route::resource('transaksi', 'TransaksiController');
+  // route profil
+  Route::get('profil', 'UserController@index');
+  // route setting profil
+  Route::get('setting', 'UserController@setting');
 });
