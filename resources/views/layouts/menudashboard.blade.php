@@ -85,6 +85,14 @@
       </ul>
     </li>
     <li class="nav-item">
+      <a href="{{ URL::to('admin/profil') }}" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+          Profil
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-sign-out-alt"></i>
         <p>
