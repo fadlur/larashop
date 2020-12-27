@@ -15,3 +15,21 @@
 //     return view('welcome');
 // });
 Route::get('/', 'HomepageController@index');
+Route::get('/about', 'HomepageController@about');
+Route::get('/kontak', 'HomepageController@kontak');
+Route::get('/kategori', 'HomepageController@kategori');
+Route::get('/produk', 'HomepageController@produk');
+Route::get('/produk/{id}', 'HomepageController@produkdetail');
+
+// route dashboard
+Route::group(['prefix' => 'admin'], function() {
+  Route::get('/', 'DashboardController@index');
+  // route kategori
+  Route::resource('kategori', 'KategoriController');
+  // route produk
+  Route::resource('produk', 'ProdukController');
+  // route data customer
+  Route::resource('customer', 'CustomerController');
+  // route transaksi
+  Route::resource('transaksi', 'TransaksiController');
+});
