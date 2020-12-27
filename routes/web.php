@@ -26,4 +26,6 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('/', 'DashboardController@index');
   // route kategori
   Route::resource('kategori', 'KategoriController');
+  // route produk
+  Route::resource('produk', 'ProdukController');
 });
