@@ -19,3 +19,4 @@ Route::get('/about', 'HomepageController@about');
 Route::get('/kontak', 'HomepageController@kontak');
 Route::get('/kategori', 'HomepageController@kategori');
 Route::get('/produk', 'HomepageController@produk');
+Route::get('/produk/{id}', 'HomepageController@produkdetail');

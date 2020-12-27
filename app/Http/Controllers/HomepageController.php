@@ -30,4 +30,9 @@ class HomepageController extends Controller
         $data = array('title' => 'Produk');
         return view('homepage.produk', $data);
     }
+
+    public function produkdetail($id) {
+        $data = array('title' => 'Produk Detail');
+        return view('homepage.produkdetail', $data);
+    }
 }
