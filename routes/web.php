@@ -24,4 +24,6 @@ Route::get('/produk/{id}', 'HomepageController@produkdetail');
 // route dashboard
 Route::group(['prefix' => 'admin'], function() {
   Route::get('/', 'DashboardController@index');
+  // route kategori
+  Route::resource('kategori', 'KategoriController');
 });
