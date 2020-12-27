@@ -20,3 +20,8 @@ Route::get('/kontak', 'HomepageController@kontak');
 Route::get('/kategori', 'HomepageController@kategori');
 Route::get('/produk', 'HomepageController@produk');
 Route::get('/produk/{id}', 'HomepageController@produkdetail');
+
+// route dashboard
+Route::group(['prefix' => 'admin'], function() {
+  Route::get('/', 'DashboardController@index');
+});
