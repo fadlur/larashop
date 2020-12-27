@@ -1,6 +1,7 @@
-## Database Seeder
-Pada bagian ini kita hanya akan membuat data dummy user dengan role admin
+## Database Kategori
+Pada bagian ini hanya membuat migration sama model Kategori
 
 Langkah-langkah : 
-- Buat seeder dengan nama UserSeeder
-- Panggil dengan mengedit file DatabaseSeeder.php dan masukkan panggil UserSeeder
+- Buat model dengan command php artisan make:model Kategori -m
+- -m di belakang nama model maksudnya adalah sekalian sama migrationsnya
+- Kategori dibuat dengan foreign key user_id mengacu ke id di table users
