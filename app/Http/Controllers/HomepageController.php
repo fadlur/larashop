@@ -20,4 +20,14 @@ class HomepageController extends Controller
         $data = array('title' => 'Kontak Kami');
         return view('homepage.kontak', $data);
     }
+
+    public function kategori() {
+        $data = array('title' => 'Kategori Produk');
+        return view('homepage.kategori', $data);
+    }
+
+    public function produk() {
+        $data = array('title' => 'Produk');
+        return view('homepage.produk', $data);
+    }
 }

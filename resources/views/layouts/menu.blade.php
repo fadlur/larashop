@@ -11,10 +11,10 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Produk</a>
+          <a class="nav-link" href="{{ URL::to('produk') }}">Produk</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Kategori</a>
+          <a class="nav-link" href="{{ URL::to('kategori') }}">Kategori</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ URL::to('kontak') }}">Kontak</a>
