@@ -41,3 +41,7 @@ Route::group(['prefix' => 'admin'], function() {
   // proses laporan
   Route::get('proseslaporan', 'LaporanController@proses');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
