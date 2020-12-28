@@ -35,3 +35,11 @@ Langkah-langkahnya :
 - Tambahkan 2 function upload dan hapus image kategori
 - Tambahkan 2 route ke web.php
 - Edit file views kategori/index.blade.php bagian upload image
+
+## CRUD Produk
+Proses create, read, update dan delete data produk
+
+Langkah-langkahnya :
+- Tambahkan model Kategori dan Produk ke ProdukController
+- Edit bagian function index sampai destroy
+- Edit juga views produknya
