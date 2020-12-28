@@ -20,4 +20,8 @@ class Kategori extends Model
     public function user() {//user yang menginput data kategori
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function produk() {
+        return $this->hasMany('App\Produk', 'kategori_id');
+    }
 }
