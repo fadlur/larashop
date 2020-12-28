@@ -17,3 +17,13 @@ Langkah-langkahnya :
 - Edit function edit
 - Tambahkan function update dan delete
 - Tambahkan function produk di model Kategori untuk relasi hasMany produk
+
+## Upload Image
+Upload image digunakan untuk mengupload yang nantinya digunakan untuk upload produk image, kategori image dan foto profil customer
+
+Langkah-langkahnya :
+- Update model Image dan migrationnya
+- Buatlah 1 buah controller ImageController
+- Jalankan perintah storage:link
+- Update config/filesystems.php
+- Tambahkan route upload image, delete image dan detail image by id
