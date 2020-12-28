@@ -40,6 +40,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::get('laporan', 'LaporanController@index');
   // proses laporan
   Route::get('proseslaporan', 'LaporanController@proses');
+  // image
+  Route::get('image', 'ImageController@index');
+  // simpan image
+  Route::post('image', 'ImageController@store');
+  // hapus image by id
+  Route::delete('image/{id}', 'ImageController@destroy');
 });
 
 Auth::routes();
