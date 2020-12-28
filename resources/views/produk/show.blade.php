@@ -18,25 +18,25 @@
               <tr>
                 <td>Kode Produk</td>
                 <td>
-                  PRO-12
+                  {{ $itemproduk->kode_produk }}
                 </td>
               </tr>
               <tr>
                 <td>Nama Produk</td>
                 <td>
-                  Baju Anak
+                {{ $itemproduk->nama_produk }}
                 </td>
               </tr>
               <tr>
                 <td>Qty</td>
                 <td>
-                  12 pcs
+                {{ $itemproduk->qty }} {{ $itemproduk->satuan }}
                 </td>
               </tr>
               <tr>
                 <td>Harga</td>
                 <td>
-                  Rp. 15.0000
+                  Rp. {{ number_format($itemproduk->harga, 2) }}
                 </td>
               </tr>
             </table>
@@ -50,71 +50,51 @@
           <h3 class="card-title">Foto Produk</h3>
         </div>
         <div class="card-body">
-          <form action="#">
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <input type="file" name="image" id="image">
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-              </div>
+          <form action="{{ url('/admin/produkimage') }}" method="post" enctype="multipart/form-data" class="form-inline">
+            @csrf
+            <div class="form-group">
+              <input type="file" name="image" id="image">
+              <input type="hidden" name="produk_id" value={{ $itemproduk->id }}>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Upload</button>
             </div>
           </form>
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
+            <div class="col mb-2">
+              @if(count($errors) > 0)
+              @foreach($errors->all() as $error)
+                  <div class="alert alert-warning">{{ $error }}</div>
+              @endforeach
+              @endif
+              @if ($message = Session::get('error'))
+                  <div class="alert alert-warning">
+                      <p>{{ $message }}</p>
+                  </div>
+              @endif
+              @if ($message = Session::get('success'))
+                  <div class="alert alert-success">
+                      <p>{{ $message }}</p>
+                  </div>
+              @endif
             </div>
-
+          </div>
+          <div class="row">
+            @foreach($itemproduk->images as $image)
             <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
+              <img src="{{ \Storage::url($image->foto) }}" alt="image" class="img-thumbnail mb-2">
+              <form action="{{ url('/admin/produkimage/'.$image->id) }}" method="post" style="display:inline;">
+                @csrf
+                {{ method_field('delete') }}
+                <button type="submit" class="btn btn-sm btn-danger mb-2">
+                  Hapus
+                </button>                    
+              </form>
             </div>
-
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
-            </div>
-
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
-            </div>
-
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
-            </div>
-
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
-            </div>
-
-            <div class="col-md-3 mb-2">
-              <img src="{{ asset('images/slide1.jpg') }}" alt="image" class="img-thumbnail mb-2">
-              <button class="btn-sm btn-danger btn">
-                Delete
-              </button>
-            </div>
+            @endforeach
+            
           </div>
         </div>
       </div>

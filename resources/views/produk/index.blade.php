@@ -59,15 +59,9 @@
                   {{ ++$no }}
                   </td>
                   <td>
-                    <img src="{{ asset('images/slide1.jpg') }}" alt="produk 1" width='150px'>
-                    <div class="row mt-2">
-                      <div class="col">
-                        <input type="file" name="gambar" id="gambar">
-                      </div>
-                      <div class="col-auto">
-                        <button class="btn btn-sm btn-primary">Upload</button>
-                      </div>
-                    </div>
+                    @if($produk->foto != null)
+                    <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}" width='150px' class="img-thumbnail">
+                    @endif
                   </td>
                   <td>
                   {{ $produk->kode_produk }}
