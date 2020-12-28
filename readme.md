@@ -43,3 +43,12 @@ Langkah-langkahnya :
 - Tambahkan model Kategori dan Produk ke ProdukController
 - Edit bagian function index sampai destroy
 - Edit juga views produknya
+
+## Detail Produk
+Pada bagian detail produk, kita akan menambahkan foto-foto untuk masing-masing produk
+
+Langkah-langkahnya :
+- Buat model ProdukImage dan migrationsnya
+- Edit bagian function show pada controller ProdukController
+- Tambahkan function upload image dan hapus image
+- Edit juga file produk/index.blade.php untuk menampilkan banner produk
