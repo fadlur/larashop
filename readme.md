@@ -27,3 +27,11 @@ Langkah-langkahnya :
 - Jalankan perintah storage:link
 - Update config/filesystems.php
 - Tambahkan route upload image, delete image dan detail image by id
+
+## Upload Image Kategori
+Upload image atau banner kategori
+
+Langkah-langkahnya :
+- Tambahkan 2 function upload dan hapus image kategori
+- Tambahkan 2 route ke web.php
+- Edit file views kategori/index.blade.php bagian upload image

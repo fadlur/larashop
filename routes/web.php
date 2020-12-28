@@ -46,6 +46,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::post('image', 'ImageController@store');
   // hapus image by id
   Route::delete('image/{id}', 'ImageController@destroy');
+  // upload image kategori
+  Route::post('imagekategori', 'KategoriController@uploadimage');
+  // hapus image kategori
+  Route::delete('imagekategori/{id}', 'KategoriController@deleteimage');
 });
 
 Auth::routes();
