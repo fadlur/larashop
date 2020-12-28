@@ -58,15 +58,30 @@
                   {{ ++$no }}
                   </td>
                   <td>
-                    <img src="{{ asset('images/slide1.jpg') }}" alt="kategori 1" width='150px'>
-                    <div class="row mt-2">
-                      <div class="col">
-                        <input type="file" name="gambar" id="gambar">
+                    <!-- image kategori -->
+                    @if($kategori->foto != null)
+                    <img src="{{ \Storage::url($kategori->foto) }}" alt="{{ $kategori->nama_kategori }}" width='150px' class="img-thumbnail mb-2">
+                    <br>
+                    <form action="{{ url('/admin/imagekategori/'.$kategori->id) }}" method="post" style="display:inline;">
+                      @csrf
+                      {{ method_field('delete') }}
+                      <button type="submit" class="btn btn-sm btn-danger mb-2">
+                        Hapus
+                      </button>                    
+                    </form>
+                    @else
+                    <form action="{{ url('/admin/imagekategori') }}" method="post" enctype="multipart/form-data" class="form-inline">
+                      @csrf
+                      <div class="form-group">
+                        <input type="file" name="image" id="image">
+                        <input type="hidden" name="kategori_id" value={{ $kategori->id }}>
                       </div>
-                      <div class="col-auto">
-                        <button class="btn btn-sm btn-primary">Upload</button>
+                      <div class="form-group">
+                        <button class="btn btn-primary">Upload</button>
                       </div>
-                    </div>
+                    </form>
+                    @endif
+                    <!-- end image kategori -->
                   </td>
                   <td>
                   {{ $kategori->kode_kategori }}
