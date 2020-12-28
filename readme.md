@@ -1,7 +1,8 @@
-## Database Kategori
-Pada bagian ini hanya membuat migration sama model Kategori
+## Database Produk
+Pada bagian ini hanya membuat migration sama model Produk
 
 Langkah-langkah : 
-- Buat model dengan command php artisan make:model Kategori -m
+- Buat model dengan command php artisan make:model Produk -m
 - -m di belakang nama model maksudnya adalah sekalian sama migrationsnya
-- Kategori dibuat dengan foreign key user_id mengacu ke id di table users
+- Produk dibuat dengan foreign key user_id mengacu ke id di table users
+- Produk juga dikelompokkan berdasarkan kategori, sehingga foreign key kategori_id
