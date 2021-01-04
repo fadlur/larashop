@@ -56,6 +56,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::delete('produkimage/{id}', 'ProdukController@deleteimage');
   // slideshow
   Route::resource('slideshow', 'SlideshowController');
+  // produk promo
+  Route::resource('promo', 'ProdukPromoController');
+  // load async produk
+  Route::get('loadprodukasync/{id}', 'ProdukController@loadasync');
 });
 
 Auth::routes();

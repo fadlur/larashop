@@ -31,6 +31,12 @@
             <p>Kategori</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('promo.index') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Promo</p>
+          </a>
+        </li>
       </ul>
     </li>
     <li class="nav-item has-treeview">
