@@ -35,13 +35,49 @@ class HomepageController extends Controller
     }
 
     public function kategori() {
-        $data = array('title' => 'Kategori Produk');
+        $itemkategori = Kategori::orderBy('nama_kategori', 'asc')->limit(6)->get();
+        $itemproduk = Produk::orderBy('created_at', 'desc')->limit(6)->get();
+        $data = array('title' => 'Kategori Produk',
+                    'itemkategori' => $itemkategori,
+                    'itemproduk' => $itemproduk);
         return view('homepage.kategori', $data);
     }
 
-    public function produk() {
-        $data = array('title' => 'Produk');
-        return view('homepage.produk', $data);
+    public function kategoribyslug(Request $request, $slug) {
+        $itemproduk = Produk::orderBy('nama_produk', 'desc')
+                            ->where('status', 'publish')
+                            ->whereHas('kategori', function($q) use ($slug) {
+                                $q->where('slug_kategori', $slug);
+                            })
+                            ->paginate(18);
+        $listkategori = Kategori::orderBy('nama_kategori', 'asc')
+                                ->where('status', 'publish')
+                                ->get();
+        $itemkategori = Kategori::where('slug_kategori', $slug)
+                                ->where('status', 'publish')
+                                ->first();
+        if ($itemkategori) {
+            $data = array('title' => $itemkategori->nama_kategori,
+                        'itemproduk' => $itemproduk,
+                        'listkategori' => $listkategori,
+                        'itemkategori' => $itemkategori);
+            return view('homepage.produk', $data)->with('no', ($request->input('page') - 1) * 18);            
+        } else {
+            return abort('404');
+        }
+    }
+
+    public function produk(Request $request) {
+        $itemproduk = Produk::orderBy('nama_produk', 'desc')
+                            ->where('status', 'publish')
+                            ->paginate(18);
+        $listkategori = Kategori::orderBy('nama_kategori', 'asc')
+                                ->where('status', 'publish')
+                                ->get();
+        $data = array('title' => 'Produk',
+                    'itemproduk' => $itemproduk,
+                    'listkategori' => $listkategori);
+        return view('homepage.produk', $data)->with('no', ($request->input('page') - 1) * 18);
     }
 
     public function produkdetail($id) {
