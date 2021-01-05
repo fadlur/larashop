@@ -113,7 +113,7 @@
     <!-- produk pertama -->
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <a href="{{ URL::to('produk/satu') }}">
+        <a href="{{ URL::to('produk/'.$produk->slug_produk) }}">
           @if($produk->foto != null)
           <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
           @else
