@@ -45,7 +45,16 @@ class HomepageController extends Controller
     }
 
     public function produkdetail($id) {
-        $data = array('title' => 'Produk Detail');
-        return view('homepage.produkdetail', $data);
+        $itemproduk = Produk::where('slug_produk', $id)
+                            ->where('status', 'publish')
+                            ->first();
+        if ($itemproduk) {
+            $data = array('title' => $itemproduk->nama_produk,
+                        'itemproduk' => $itemproduk);
+            return view('homepage.produkdetail', $data);            
+        } else {
+            // kalo produk ga ada, jadinya tampil halaman tidak ditemukan (error 404)
+            return abort('404');
+        }
     }
 }

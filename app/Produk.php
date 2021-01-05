@@ -32,4 +32,8 @@ class Produk extends Model
     public function images() {
         return $this->hasMany('App\ProdukImage', 'produk_id');
     }
+
+    public function promo() {
+        return $this->hasOne('App\ProdukPromo', 'produk_id');
+    }
 }
