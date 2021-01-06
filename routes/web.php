@@ -18,6 +18,7 @@ Route::get('/', 'HomepageController@index');
 Route::get('/about', 'HomepageController@about');
 Route::get('/kontak', 'HomepageController@kontak');
 Route::get('/kategori', 'HomepageController@kategori');
+Route::get('/kategori/{slug}', 'HomepageController@kategoribyslug');
 Route::get('/produk', 'HomepageController@produk');
 Route::get('/produk/{id}', 'HomepageController@produkdetail');
 
@@ -56,8 +57,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::delete('produkimage/{id}', 'ProdukController@deleteimage');
   // slideshow
   Route::resource('slideshow', 'SlideshowController');
+  // produk promo
+  Route::resource('promo', 'ProdukPromoController');
+  // load async produk
+  Route::get('loadprodukasync/{id}', 'ProdukController@loadasync');
+  // wishlist
+  Route::resource('wishlist', 'WishlistController');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+// ubah route ke home menjadi admin
+Route::get('/home', function() {
+  return redirect('/admin');
+});

@@ -5,15 +5,17 @@
     <div class="col col-lg-8 col-md-8">
       <div id="carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
+        @foreach($itemproduk->images as $index => $image)
+        @if($index == 0)
           <div class="carousel-item active">
-              <img src="{{ asset('images/slide1.jpg') }}" class="d-block w-100" alt="...">
+              <img src="{{ \Storage::url($image->foto) }}" class="d-block w-100" alt="...">
           </div>
+        @else
           <div class="carousel-item">
-            <img src="{{ asset('images/slide2.jpg') }}" class="d-block w-100" alt="...">
+              <img src="{{ \Storage::url($image->foto) }}" class="d-block w-100" alt="...">
           </div>
-          <div class="carousel-item">
-            <img src="{{ asset('images/slide3.jpg') }}" class="d-block w-100" alt="...">
-          </div>
+        @endif
+        @endforeach
         </div>
         <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -31,14 +33,46 @@
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <span class="small">Kategori Pertama</span>
-              <h5>Produk Pertama</h5>
+              @if(count($errors) > 0)
+              @foreach($errors->all() as $error)
+                  <div class="alert alert-warning">{{ $error }}</div>
+              @endforeach
+              @endif
+              @if ($message = Session::get('error'))
+                  <div class="alert alert-warning">
+                      <p>{{ $message }}</p>
+                  </div>
+              @endif
+              @if ($message = Session::get('success'))
+                  <div class="alert alert-success">
+                      <p>{{ $message }}</p>
+                  </div>
+              @endif
+              <span class="small">{{ $itemproduk->kategori->nama_kategori }}</span>
+              <h5>{{ $itemproduk->nama_produk }}</h5>
+              <!-- cek apakah ada promo -->
+              @if($itemproduk->promo != null)
               <p>
-                Rp. 10.000,00
+                Rp. <del>{{ number_format($itemproduk->promo->harga_awal, 2) }}</del>
+                <br />
+                Rp. {{ number_format($itemproduk->promo->harga_akhir, 2) }}
               </p>
-              <button class="btn btn-sm btn-outline-secondary">
-              <i class="far fa-heart"></i> Tambah ke wishlist
-              </button>
+              @else
+              <p>
+                Rp. {{ number_format($itemproduk->harga, 2) }}
+              </p>
+              @endif
+              <form action="{{ route('wishlist.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="produk_id" value={{ $itemproduk->id }}>
+                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                @if(isset($itemwishlist) && $itemwishlist)
+                <i class="fas fa-heart"></i> Tambah ke wishlist
+                @else
+                <i class="far fa-heart"></i> Tambah ke wishlist
+                @endif
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -82,9 +116,7 @@
           Deskripsi
         </div>
         <div class="card-body">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, error ipsa dolor rem doloribus recusandae debitis quis voluptates sed omnis iure, a ipsum id consectetur, amet sapiente reprehenderit dignissimos. Voluptatum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, veritatis dicta quisquam, deleniti in beatae delectus ab harum eum reiciendis voluptatibus rem distinctio soluta veniam blanditiis minima accusamus quos corporis.</p>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique alias nobis aliquam rem ex nesciunt explicabo distinctio, placeat ut voluptate, modi officiis error excepturi vitae odit quaerat commodi tenetur recusandae.</p>
+          {{ $itemproduk->deskripsi_produk }}
         </div>
       </div>
     </div>

@@ -8,30 +8,35 @@
           Kategori
         </div>
         <ul class="list-group list-group-flush">
-          <a href="#" class="text-decoration-none">
-            <li class="list-group-item">Kategori Pertama</li>
+          @foreach($listkategori as $kategori)
+          <a href="{{ URL::to('kategori/'.$kategori->slug_kategori) }}" class="text-decoration-none">
+            <li class="list-group-item">{{ $kategori->nama_kategori }}</li>
           </a>
-          <a href="#" class="text-decoration-none">
-            <li class="list-group-item">Kategori Kedua</li>
-          </a>
-          <a href="#" class="text-decoration-none">
-            <li class="list-group-item">Kategori Ketiga</li>
-          </a>
+          @endforeach
         </ul>
       </div>
     </div>
     <div class="col col-lg-9 col-md-9 mb-2">
+      @if(isset($itemkategori))
+      <h3>{{ $itemkategori->nama_kategori }}</h3>
+      @else
       <h3>Semua Kategori</h3>
+      @endif
       <div class="row mt-4">
+        @foreach($itemproduk as $produk)
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <a href="{{ URL::to('produk/satu') }}">
-              <img src="{{asset('images/slide2.jpg') }}" alt="foto produk" class="card-img-top">
+            <a href="{{ URL::to('produk/'.$produk->slug_produk) }}">
+              @if($produk->foto != null)
+              <img src="{{ \Storage::url($produk->foto) }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
+              @else
+              <img src="{{ asset('images/bag.jpg') }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
+              @endif
             </a>
             <div class="card-body">
-              <a href="{{ URL::to('produk/satu') }}" class="text-decoration-none">
+              <a href="{{ URL::to('produk/'.$produk->slug_produk ) }}" class="text-decoration-none">
                 <p class="card-text">
-                  Produk Pertama
+                  {{ $produk->nama_produk }}
                 </p>
               </a>
               <div class="row mt-4">
@@ -40,62 +45,20 @@
                     <i class="far fa-heart"></i>
                   </button>
                 </div>
-                <div class="col-auto my-auto">
-                  Rp. 10.000,00
+                <div class="col-auto">
+                  <p>
+                    Rp. {{ number_format($produk->harga, 2) }}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- produk kedua -->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <a href="{{ URL::to('produk/dua') }}">
-              <img src="{{asset('images/slide2.jpg') }}" alt="foto produk" class="card-img-top">
-            </a>
-            <div class="card-body">
-              <a href="{{ URL::to('produk/dua') }}" class="text-decoration-none">
-                <p class="card-text">
-                  Produk Kedua
-                </p>
-              </a>
-              <div class="row mt-4">
-                <div class="col">
-                  <button class="btn btn-light">
-                    <i class="far fa-heart"></i>
-                  </button>
-                </div>
-                <div class="col-auto my-auto">
-                  Rp. 10.000,00
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- produk ketiga -->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <a href="{{ URL::to('produk/tiga') }}">
-              <img src="{{asset('images/slide2.jpg') }}" alt="foto produk" class="card-img-top">
-            </a>
-            <div class="card-body">
-              <a href="{{ URL::to('produk/tiga') }}" class="text-decoration-none">
-                <p class="card-text">
-                  Produk Ketiga
-                </p>
-              </a>
-              <div class="row mt-4 align-middle">
-                <div class="col">
-                  <button class="btn btn-light">
-                    <i class="far fa-heart"></i>
-                  </button>
-                </div>
-                <div class="col-auto my-auto">
-                  Rp. 10.000,00
-                </div>
-              </div>
-            </div>
-          </div>
+        @endforeach
+      </div>
+      <div class="row">
+        <div class="col">
+          {{ $itemproduk->links() }}
         </div>
       </div>
     </div>
