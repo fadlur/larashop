@@ -7,6 +7,8 @@ use App\Produk;
 use App\Kategori;
 use App\Slideshow;
 use App\ProdukPromo;
+use App\Wishlist;
+use Auth;
 
 class HomepageController extends Controller
 {
@@ -85,8 +87,18 @@ class HomepageController extends Controller
                             ->where('status', 'publish')
                             ->first();
         if ($itemproduk) {
-            $data = array('title' => $itemproduk->nama_produk,
-                        'itemproduk' => $itemproduk);
+            if (Auth::user()) {//cek kalo user login
+                $itemuser = Auth::user();
+                $itemwishlist = Wishlist::where('produk_id', $itemproduk->id)
+                                        ->where('user_id', $itemuser->id)
+                                        ->first();
+                $data = array('title' => $itemproduk->nama_produk,
+                        'itemproduk' => $itemproduk,
+                        'itemwishlist' => $itemwishlist);
+            } else {
+                $data = array('title' => $itemproduk->nama_produk,
+                            'itemproduk' => $itemproduk);
+            }
             return view('homepage.produkdetail', $data);            
         } else {
             // kalo produk ga ada, jadinya tampil halaman tidak ditemukan (error 404)

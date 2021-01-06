@@ -61,8 +61,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::resource('promo', 'ProdukPromoController');
   // load async produk
   Route::get('loadprodukasync/{id}', 'ProdukController@loadasync');
+  // wishlist
+  Route::resource('wishlist', 'WishlistController');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+// ubah route ke home menjadi admin
+Route::get('/home', function() {
+  return redirect('/admin');
+});
