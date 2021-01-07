@@ -130,7 +130,9 @@
         <div class="card-footer">
           <div class="row">
             <div class="col">
-              <button class="btn btn-primary btn-block">Checkout</button>
+              <a href="{{ URL::to('checkout') }}" class="btn btn-primary btn-block">
+                Checkout
+              </a>
             </div>
             <div class="col">
               <form action="{{ url('kosongkan').'/'.$itemcart->id }}" method="post">
