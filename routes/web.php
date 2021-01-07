@@ -21,7 +21,14 @@ Route::get('/kategori', 'HomepageController@kategori');
 Route::get('/kategori/{slug}', 'HomepageController@kategoribyslug');
 Route::get('/produk', 'HomepageController@produk');
 Route::get('/produk/{id}', 'HomepageController@produkdetail');
-
+// shopping cart
+Route::group(['middleware' => 'auth'], function() {
+  // cart
+  Route::resource('cart', 'CartController');
+  Route::patch('kosongkan/{id}', 'CartController@kosongkan');
+  // cart detail
+  Route::resource('cartdetail', 'CartDetailController');
+});
 // route dashboard
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   Route::get('/', 'DashboardController@index');
@@ -64,6 +71,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
   // wishlist
   Route::resource('wishlist', 'WishlistController');
 });
+
+
 
 Auth::routes();
 
