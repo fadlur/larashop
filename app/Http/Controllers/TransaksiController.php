@@ -94,10 +94,28 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $data = array('title' => 'Detail Transaksi');
-        return view('transaksi.show', $data);
+
+        $itemuser = $request->user();
+        if ($itemuser->role == 'admin') {
+            $itemorder = Order::findOrFail($id);
+            $data = array('title' => 'Detail Transaksi',
+                        'itemorder' => $itemorder);
+            return view('transaksi.show', $data)->with('no', 1);            
+        } else {
+            $itemorder = Order::where('id', $id)
+                            ->whereHas('cart', function($q) use ($itemuser) {
+                                $q->where('user_id', $itemuser->id);
+                            })->first();
+            if ($itemorder) {
+                $data = array('title' => 'Detail Transaksi',
+                            'itemorder' => $itemorder);
+                return view('transaksi.show', $data)->with('no', 1);                            
+            } else {
+                return abort('404');
+            }
+        }
     }
 
     /**
@@ -128,7 +146,24 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'status_pembayaran' => 'required',
+            'status_pengiriman' => 'required',
+            'subtotal' => 'required|numeric',
+            'ongkir' => 'required|numeric',
+            'diskon' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+        $inputan = $request->all();
+        $inputan['status_pembayaran'] = $request->status_pembayaran;
+        $inputan['status_pengiriman'] = $request->status_pengiriman;
+        $inputan['subtotal'] = str_replace(',','',$request->subtotal);
+        $inputan['ongkir'] = str_replace(',','',$request->ongkir);
+        $inputan['diskon'] = str_replace(',','',$request->diskon);
+        $inputan['total'] = str_replace(',','',$request->total);
+        $itemorder = Order::findOrFail($id);
+        $itemorder->cart->update($inputan);
+        return back()->with('success','Order berhasil diupdate');
     }
 
     /**
